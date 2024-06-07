@@ -7,6 +7,13 @@ import indexHtml from "./routes/index.html.js";
 import posts from "./routes/posts.js";
 import rssXml from "./routes/rss.xml.js";
 
+/**
+ * This is the main entry point for the site.
+ *
+ * This defines the site's top level routes as a dictionary of module exports.
+ * If an export is a function (like `about`), it will be invoked when requested.
+ * If the export is an object (like `assets`), it will be returned as is.
+ */
 export default invokeFunctions({
   "about.html": about,
   assets,
