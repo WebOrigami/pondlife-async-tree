@@ -1,0 +1,16 @@
+{
+  "name": "@weborigami/js-blog-start",
+  "version": "0.0.1",
+  "type": "module",
+  "dependencies": {
+    "@weborigami/origami": "0.0.54"
+  },
+  "engines": {
+    "node": "^22.0.0"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "ori @copy src/site.js, @clean/build",
+    "start": "ori @serve @watch src, =@debug site.js"
+  }
+}
