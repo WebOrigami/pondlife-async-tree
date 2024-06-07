@@ -1,5 +1,5 @@
 {
-  "name": "@weborigami/js-blog-start",
+  "name": "@weborigami/pondlife-js",
   "version": "0.0.1",
   "type": "module",
   "dependencies": {
@@ -10,7 +10,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "ori @copy src/site.js, @clean/build",
+    "build": "rm -rf build; ori @copy src/site.js, @mkdir/build",
     "start": "ori @serve @watch src, =@debug site.js"
   }
 }
