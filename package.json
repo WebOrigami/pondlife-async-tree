@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "type": "module",
   "dependencies": {
-    "@weborigami/origami": "0.0.54"
+    "@weborigami/origami": "0.0.54",
+    "@weborigami/dropbox": "0.0.1"
   },
   "engines": {
     "node": "^22.0.0"

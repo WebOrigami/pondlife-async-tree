@@ -1,9 +1,3 @@
-import { FileTree } from "@weborigami/async-tree";
-import { fileURLToPath } from "node:url";
+import dropbox from "../dropbox.js";
 
-/**
- * The files in the `images` folder are used as is.
- */
-export default new FileTree(
-  fileURLToPath(new URL("../../images", import.meta.url))
-);
+export default dropbox.get("images");
