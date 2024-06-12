@@ -7,37 +7,35 @@ import buffers from "./markdown.js";
  * markdown files to a set of data objects that are ready for rendering by
  * templates.
  */
-export default async () =>
-  // The `pipeline` helper applies a series of functions to the buffers.
-  pipeline(
-    // Pipeline starts with buffers holding markdown.
-    buffers,
+export default await pipeline(
+  // Pipeline starts with buffers holding markdown.
+  buffers,
 
-    // Convert the markdown buffers to objects with a `title` property and a
-    // `@text` property that contains the markdown text.
-    mapFn(mdHandler.unpack),
+  // Convert the markdown buffers to objects with a `title` property and a
+  // `@text` property that contains the markdown text.
+  mapFn(mdHandler.unpack),
 
-    // Change the keys from `.md` names to `.html` names, and the `@text`
-    // properties from markdown to HTML.
-    mapFn(mdHtml),
+  // Change the keys from `.md` names to `.html` names, and the `@text`
+  // properties from markdown to HTML.
+  mapFn(mdHtml),
 
-    // Add a `date` field parsed from the filename.
-    mapFn((post, fileName) => ({
-      ...post,
-      date: parseDate(fileName),
-    })),
+  // Add a `date` field parsed from the filename.
+  mapFn((post, fileName) => ({
+    ...post,
+    date: parseDate(fileName),
+  })),
 
-    // Add `nextKey`/`previousKey` properties so the post pages can be linked.
-    // The posts are already in chronological order because their names start
-    // with a YYYY-MM-DD date, so we can determine the next and previous posts
-    // by looking at the adjacent posts in the list. We need to do this before
-    // reversing the order in the next step; we want "next" to mean the next
-    // post in chronological order, not display order.
-    (withDate) => addNextPrevious.call(null, withDate),
+  // Add `nextKey`/`previousKey` properties so the post pages can be linked.
+  // The posts are already in chronological order because their names start
+  // with a YYYY-MM-DD date, so we can determine the next and previous posts
+  // by looking at the adjacent posts in the list. We need to do this before
+  // reversing the order in the next step; we want "next" to mean the next
+  // post in chronological order, not display order.
+  (withDate) => addNextPrevious.call(null, withDate),
 
-    // Finally, reverse to get posts in reverse chronological order.
-    reverse
-  );
+  // Finally, reverse to get posts in reverse chronological order.
+  reverse
+);
 
 // Parse a YYYY-MM-DD date from the start of the text.
 function parseDate(text) {

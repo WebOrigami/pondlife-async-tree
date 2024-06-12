@@ -6,8 +6,7 @@ import siteInfo from "./siteInfo.js";
  * Generate an object representing the feed in JSON Feed format.
  */
 export default async () => {
-  const posts = await data();
-  const itemTree = map(posts, (post, slug) => ({
+  const itemTree = map(data, (post, slug) => ({
     content_html: post["@text"],
     date_published: post.date,
     id: `${siteInfo.url}/posts/${slug}`,
