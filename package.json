@@ -3,14 +3,14 @@
   "version": "0.0.1",
   "type": "module",
   "dependencies": {
-    "@weborigami/origami": "0.0.54"
+    "@weborigami/origami": "0.0.59"
   },
   "engines": {
     "node": "^22.0.0"
   },
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf build; ori @copy src/site.js, @mkdir/build",
+    "build": "ori @copy src/site.js, @clean @files/build",
     "start": "ori @serve @watch src, =@debug site.js"
   }
 }

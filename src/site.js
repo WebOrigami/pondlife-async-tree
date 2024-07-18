@@ -2,10 +2,10 @@ import { invokeFunctions } from "@weborigami/async-tree";
 import about from "./routes/about.html.js";
 import assets from "./routes/assets.js";
 import feedJson from "./routes/feed.json.js";
+import feedXml from "./routes/feed.xml.js";
 import images from "./routes/images.js";
 import indexHtml from "./routes/index.html.js";
 import posts from "./routes/posts.js";
-import rssXml from "./routes/rss.xml.js";
 
 /**
  * This is the main entry point for the site.
@@ -20,6 +20,6 @@ export default invokeFunctions({
   images,
   "index.html": indexHtml,
   "feed.json": feedJson,
+  "feed.xml": feedXml,
   posts,
-  "rss.xml": rssXml,
 });
