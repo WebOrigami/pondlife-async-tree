@@ -1,4 +1,4 @@
-import { mapFn, pipeline, reverse } from "@weborigami/async-tree";
+import { map, pipeline, reverse } from "@weborigami/async-tree";
 import { addNextPrevious, mdHandler, mdHtml } from "@weborigami/origami";
 import buffers from "./markdown.js";
 
@@ -13,17 +13,18 @@ export default await pipeline(
 
   // Convert the markdown buffers to objects with a `title` property and a
   // `@text` property that contains the markdown text.
-  mapFn(mdHandler.unpack),
+  (_) => map(_, mdHandler.unpack),
 
   // Change the keys from `.md` names to `.html` names, and the `@text`
   // properties from markdown to HTML.
-  mapFn(mdHtml),
+  (_) => map(_, mdHtml),
 
   // Add a `date` field parsed from the filename.
-  mapFn((post, fileName) => ({
-    ...post,
-    date: parseDate(fileName),
-  })),
+  (_) =>
+    map(_, (post, fileName) => ({
+      ...post,
+      date: parseDate(fileName),
+    })),
 
   // Add `nextKey`/`previousKey` properties so the post pages can be linked.
   // The posts are already in chronological order because their names start

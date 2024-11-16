@@ -10,7 +10,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "ori @copy src/site.js, @clean @files/build",
-    "start": "ori @serve @watch src, =@debug site.js"
+    "build": "ori copy src/site.js, clear files:build",
+    "start": "ori serve watch src, =debug site.js"
   }
 }
