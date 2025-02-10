@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "type": "module",
   "dependencies": {
-    "@weborigami/origami": "0.1.0"
+    "@weborigami/origami": "0.2.7"
   },
   "engines": {
     "node": "^22.0.0"
@@ -11,6 +11,6 @@
   "license": "MIT",
   "scripts": {
     "build": "ori copy src/site.js, clear files:build",
-    "start": "ori serve watch src, =debug site.js"
+    "start": "ori serve watch src, =debug src/site.js"
   }
 }
