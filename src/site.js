@@ -1,25 +1,22 @@
-import { invokeFunctions } from "@weborigami/async-tree";
-import about from "./routes/about.html.js";
-import assets from "./routes/assets.js";
-import feedJson from "./routes/feed.json.js";
-import feedXml from "./routes/feed.xml.js";
-import images from "./routes/images.js";
-import indexHtml from "./routes/index.html.js";
-import posts from "./routes/posts.js";
+import { FileTree, map } from "@weborigami/async-tree";
+import { rss } from "@weborigami/origami";
+import data from "./data.js";
+import jsonFeed from "./jsonFeed.js";
+import aboutPage from "./templates/aboutPage.js";
+import multiPostPage from "./templates/multiPostPage.js";
+import singlePostPage from "./templates/singlePostPage.js";
+
+const feed = await jsonFeed(data);
 
 /**
  * This is the main entry point for the site.
- *
- * This defines the site's top level routes as a dictionary of module exports.
- * If an export is a function (like `about`), it will be invoked when requested.
- * If the export is an object (like `assets`), it will be returned as is.
  */
-export default invokeFunctions({
-  "about.html": about,
-  assets,
-  images,
-  "index.html": indexHtml,
-  "feed.json": feedJson,
-  "feed.xml": feedXml,
-  posts,
-});
+export default {
+  "about.html": aboutPage(),
+  assets: new FileTree(new URL("../src/assets", import.meta.url)),
+  images: new FileTree(new URL("../images", import.meta.url)),
+  "index.html": multiPostPage(data),
+  "feed.json": JSON.stringify(feed, null, 2),
+  "feed.xml": rss.call(null, feed),
+  posts: map(data, (value, key, tree) => singlePostPage(value, key, tree)),
+};

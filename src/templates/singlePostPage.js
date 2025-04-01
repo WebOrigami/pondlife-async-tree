@@ -1,11 +1,11 @@
 import page from "./page.js";
-import singlePost from "./singlePost.js";
+import singlePost from "./postFragment.js";
 
 // A page showing a single post
 export default async (post, key, tree) =>
   page({
     title: post.title,
-    "@text": `
+    body: `
     ${singlePost(post, key)}
     <p>
       ${

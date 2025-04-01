@@ -21,7 +21,7 @@ export default (page) => `<!DOCTYPE html>
       <a href="/about.html" class="about">About</a>
     </header>
     <main>    
-${page["@text"]}
+${page.body}
     </main>
   </body>
 </html>

@@ -1,13 +1,12 @@
 import { Tree, map } from "@weborigami/async-tree";
-import data from "./data.js";
 import siteInfo from "./siteInfo.js";
 
 /**
  * Generate an object representing the feed in JSON Feed format.
  */
-export default async () => {
+export default async (data) => {
   const itemTree = map(data, (post, slug) => ({
-    content_html: post["@text"],
+    content_html: post["body"],
     date_published: post.date,
     id: `${siteInfo.url}/posts/${slug}`,
     title: post.title,

@@ -9,6 +9,6 @@ export default (post, key) => `
       month: "long",
       day: "numeric",
     })}
-    ${post["@text"]}
+    ${post["body"]}
   </section>
 `;

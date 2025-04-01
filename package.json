@@ -3,10 +3,8 @@
   "version": "0.0.1",
   "type": "module",
   "dependencies": {
-    "@weborigami/origami": "0.2.7"
-  },
-  "engines": {
-    "node": "^22.0.0"
+    "@weborigami/origami": "0.2.11",
+    "marked": "15.0.7"
   },
   "license": "MIT",
   "scripts": {
