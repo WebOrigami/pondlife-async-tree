@@ -1,5 +1,10 @@
-import { extension, FileTree, map, reverse } from "@weborigami/async-tree";
-import { addNextPrevious } from "@weborigami/origami";
+import {
+  addNextPrevious,
+  extension,
+  FileTree,
+  map,
+  reverse,
+} from "@weborigami/async-tree";
 import { marked } from "marked";
 import { markdownDocument, parseDate } from "./utilities.js";
 
@@ -18,21 +23,16 @@ const buffers = new FileTree(new URL("../markdown", import.meta.url));
 const markdownDocuments = await map(buffers, markdownDocument);
 
 // Change the keys from `.md` names to `.html` names, and the `body`
-// properties from markdown to HTML.
+// properties from markdown to HTML. Also parse date from filename.
 const htmlDocuments = await map(markdownDocuments, {
   key: (key) => extension.replace(key, ".md", ".html"),
   inverseKey: (key) => extension.replace(key, ".html", ".md"),
-  value: (post) => ({
+  value: (post, key) => ({
     ...post,
-    body: marked(post["body"]),
+    date: parseDate(key),
+    body: marked(post.body),
   }),
 });
-
-// Add a `date` field parsed from the filename.
-const withDate = await map(htmlDocuments, (post, fileName) => ({
-  ...post,
-  date: parseDate(fileName),
-}));
 
 // Add `nextKey`/`previousKey` properties so the post pages can be linked.
 // The posts are already in chronological order because their names start
@@ -40,7 +40,7 @@ const withDate = await map(htmlDocuments, (post, fileName) => ({
 // by looking at the adjacent posts in the list. We need to do this before
 // reversing the order in the next step; we want "next" to mean the next
 // post in chronological order, not display order.
-const crossLinked = await addNextPrevious.call(null, withDate);
+const crossLinked = await addNextPrevious(htmlDocuments);
 
 // Finally, reverse to get posts in reverse chronological order.
 const reversed = reverse(crossLinked);
