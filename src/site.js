@@ -1,5 +1,5 @@
 import { FileTree, map, paginate } from "@weborigami/async-tree";
-import { rss } from "@weborigami/origami";
+import jsonFeedToRss from "@weborigami/json-feed-to-rss";
 import data from "./data.js";
 import jsonFeed from "./jsonFeed.js";
 import aboutPage from "./templates/aboutPage.js";
@@ -25,7 +25,7 @@ export default {
   images: new FileTree(new URL("../images", import.meta.url)),
   "index.html": pages.get("1.html"), // same as first page in pages area
   "feed.json": JSON.stringify(feed, null, 2),
-  "feed.xml": rss.call(null, feed),
+  "feed.xml": jsonFeedToRss(feed),
   pages,
   posts: map(data, (value, key, tree) => singlePostPage(value, key, tree)),
 };
