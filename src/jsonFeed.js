@@ -6,7 +6,7 @@ import siteInfo from "./siteInfo.js";
  */
 export default async (data) => {
   const itemTree = map(data, (post, slug) => ({
-    content_html: post["body"],
+    content_html: post.body,
     date_published: post.date,
     id: `${siteInfo.url}/posts/${slug}`,
     title: post.title,

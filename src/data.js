@@ -1,18 +1,19 @@
 import {
   addNextPrevious,
-  extension,
+  extensionKeyFunctions,
   FileTree,
   map,
   reverse,
 } from "@weborigami/async-tree";
 import { marked } from "marked";
-import { markdownDocument, parseDate } from "./utilities.js";
+import markdownDocument from "./markdownDocument.js";
+import parseDate from "./parseDate.js";
 
 /**
- * This pipeline reads in the collection of Buffer objects representing the
+ * This pipeline reads in a collection of Buffer objects representing the
  * markdown files, applies a number of transformations, and produces a
- * reverse-chronological collection of document objects ready for rendering in
- * various forms.
+ * reverse-chronological ordered collection of document objects ready for
+ * rendering in various forms.
  */
 
 // Start with all the markdown files as a tree of Buffers
@@ -22,14 +23,15 @@ const buffers = new FileTree(new URL("../markdown", import.meta.url));
 // property that contains the markdown text.
 const markdownDocuments = await map(buffers, markdownDocument);
 
-// Change the keys from `.md` names to `.html` names, and the `body`
-// properties from markdown to HTML. Also parse date from filename.
+// Transform and add properties
 const htmlDocuments = await map(markdownDocuments, {
-  key: (key) => extension.replace(key, ".md", ".html"),
-  inverseKey: (key) => extension.replace(key, ".html", ".md"),
+  // Change the keys from `.md` names to `.html` names
+  ...extensionKeyFunctions(".md", ".html"),
   value: (post, key) => ({
     ...post,
+    // Parse date from filename
     date: parseDate(key),
+    // Transform the body from markdown to HTML
     body: marked(post.body),
   }),
 });
