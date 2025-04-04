@@ -9,12 +9,10 @@ import { marked } from "marked";
 import markdownDocument from "./markdownDocument.js";
 import parseDate from "./parseDate.js";
 
-/**
- * This pipeline reads in a collection of Buffer objects representing the
- * markdown files, applies a number of transformations, and produces a
- * reverse-chronological ordered collection of document objects ready for
- * rendering in various forms.
- */
+// Data pipeline: reads in a collection of Buffer objects representing the
+// markdown files, applies a number of transformations, and produces a
+// reverse-chronological ordered collection of document objects ready for
+// rendering in various forms.
 
 // Start with all the markdown files as a tree of Buffers
 const buffers = new FileTree(new URL("../markdown", import.meta.url));
@@ -27,11 +25,10 @@ const markdownDocuments = await map(buffers, markdownDocument);
 const htmlDocuments = await map(markdownDocuments, {
   // Change the keys from `.md` names to `.html` names
   ...extensionKeyFunctions(".md", ".html"),
+  // Parse date from filename and convert the body from markdown to HTML
   value: (post, key) => ({
     ...post,
-    // Parse date from filename
     date: parseDate(key),
-    // Transform the body from markdown to HTML
     body: marked(post.body),
   }),
 });
@@ -44,7 +41,7 @@ const htmlDocuments = await map(markdownDocuments, {
 // post in chronological order, not display order.
 const crossLinked = await addNextPrevious(htmlDocuments);
 
-// Finally, reverse to get posts in reverse chronological order.
+// Entries are sorted by date; reverse for latest first
 const reversed = reverse(crossLinked);
 
 export default reversed;
