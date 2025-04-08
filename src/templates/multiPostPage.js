@@ -1,20 +1,18 @@
-import { Tree, map } from "@weborigami/async-tree";
+import { concatTrees, map } from "@weborigami/async-tree";
 import siteInfo from "../siteInfo.js";
 import page from "./page.js";
 import postFragment from "./postFragment.js";
 
 // A page showing multiple posts
 export default async (paginated) => {
-  const { items, nextPage, previousPage } = paginated;
-  const postFragmentsTree = await map(items, postFragment);
-  const postFragments = await Tree.values(postFragmentsTree);
+  const { items: posts, nextPage, previousPage } = paginated;
   return page({
     title: siteInfo.title,
     area: "home",
-    body: `
+    body: await concatTrees`
       <h1>${siteInfo.title}</h1>
       <p>${siteInfo.description}</p>
-      ${postFragments.join("\n")}
+      ${map(posts, postFragment)}
       <p>
         ${
           nextPage
