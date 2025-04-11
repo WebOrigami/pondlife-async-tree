@@ -14,16 +14,15 @@ import singlePostPage from "./templates/singlePostPage.js";
 // Group posts into pages of 10
 const pages = map(await paginate(posts, 10), {
   ...extensionKeyFunctions("", ".html"), // Add `.html` to keys
-  value: multiPostPage,
+  value: multiPostPage, // Apply the multi-post template
 });
 
 // Convert posts to a feed object in JSON Feed schema
 const feed = await jsonFeed(posts);
 
 //
-// This is the primary representation of the site as an object, some of whose
-// properties are async promise for a single result, and others of which are
-// async trees of promises.
+// This is the primary representation of the site as an object. Some properties
+// are async promises for a single result, others are async trees of promises.
 //
 export default {
   "about.html": aboutPage(),
@@ -33,5 +32,5 @@ export default {
   "feed.json": JSON.stringify(feed, null, 2),
   "feed.xml": jsonFeedToRss(feed),
   pages,
-  posts: map(posts, (value, key, tree) => singlePostPage(value, key, tree)),
+  posts: map(posts, singlePostPage),
 };

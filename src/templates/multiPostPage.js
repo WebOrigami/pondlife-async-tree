@@ -4,11 +4,11 @@ import page from "./page.js";
 import postFragment from "./postFragment.js";
 
 // A page showing multiple posts
-export default async (paginated) => {
-  const { items: posts, nextPage, previousPage } = paginated;
-  return page({
+export default async ({ items: posts, nextPage, previousPage }) =>
+  page({
     title: siteInfo.title,
     area: "home",
+    // concatTrees template literal reduces the tree of post fragments to text
     body: await concatTrees`
       <h1>${siteInfo.title}</h1>
       <p>${siteInfo.description}</p>
@@ -39,4 +39,3 @@ export default async (paginated) => {
       </footer>
     `,
   });
-};
