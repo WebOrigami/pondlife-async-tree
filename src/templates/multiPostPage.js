@@ -4,10 +4,10 @@ import page from "./page.js";
 import postFragment from "./postFragment.js";
 
 // A page showing multiple posts
-export default async ({ items: posts, nextPage, previousPage }) =>
+export default async ({ items: posts, nextPage, pageNumber, previousPage }) =>
   page({
-    title: siteInfo.title,
-    area: "home",
+    title: `${siteInfo.title} — Page ${pageNumber}`,
+    area: pageNumber === 1 ? "home" : null,
     // concatTrees template literal reduces the tree of post fragments to text
     body: await concatTrees`
       <h1>${siteInfo.title}</h1>
@@ -35,7 +35,7 @@ export default async ({ items: posts, nextPage, previousPage }) =>
        <footer>
        <a href="/feed.xml">RSS feed</a>
        <a href="/feed.json">JSON feed</a>
-       <a href="https://github.com/WebOrigami/origami-blog-start">View source</a>
+       <a href="https://github.com/WebOrigami/pondlife-async-tree">View source</a>
       </footer>
     `,
   });
