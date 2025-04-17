@@ -1,9 +1,4 @@
-import {
-  extensionKeyFunctions,
-  FileTree,
-  map,
-  paginate,
-} from "@weborigami/async-tree";
+import { FileTree, map, paginate } from "@weborigami/async-tree";
 import jsonFeedToRss from "@weborigami/json-feed-to-rss";
 import jsonFeed from "./jsonFeed.js";
 import posts from "./posts.js";
@@ -13,7 +8,7 @@ import singlePostPage from "./templates/singlePostPage.js";
 
 // Group posts into pages of 10
 const pages = map(await paginate(posts, 10), {
-  ...extensionKeyFunctions("", ".html"), // Add `.html` to keys
+  extension: "->.html", // // Add `.html` to the numeric keys
   value: multiPostPage, // Apply the multi-post template
 });
 

@@ -1,6 +1,5 @@
 import {
   addNextPrevious,
-  extensionKeyFunctions,
   FileTree,
   map,
   reverse,
@@ -23,8 +22,8 @@ const markdownDocuments = await map(buffers, markdownDocument);
 
 // Transform and add properties
 const htmlDocuments = await map(markdownDocuments, {
-  // Change the keys from `.md` names to `.html` names
-  ...extensionKeyFunctions(".md", ".html"),
+  // Change the extension
+  extension: ".md->.html",
   // Parse date from filename and convert the body from markdown to HTML
   value: (post, key) => ({
     ...post,
