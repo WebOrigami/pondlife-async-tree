@@ -8,8 +8,8 @@ import singlePostPage from "./templates/singlePostPage.js";
 
 // Group posts into pages of 10
 const pages = map(await paginate(posts, 10), {
-  extension: "->.html", // // Add `.html` to the numeric keys
-  value: multiPostPage, // Apply the multi-post template
+  extension: "->.html", // Add `.html` to the numeric keys
+  value: multiPostPage, // Apply template to the set of 10 posts
 });
 
 // Convert posts to a feed object in JSON Feed schema
