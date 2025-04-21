@@ -1,4 +1,4 @@
-import { concatTrees, map } from "@weborigami/async-tree";
+import { deepText, map } from "@weborigami/async-tree";
 import siteInfo from "../siteInfo.js";
 import page from "./page.js";
 import postFragment from "./postFragment.js";
@@ -8,8 +8,8 @@ export default async ({ items: posts, nextPage, pageNumber, previousPage }) =>
   page({
     title: `${siteInfo.title} — Page ${pageNumber}`,
     area: pageNumber === 1 ? "home" : null,
-    // concatTrees template literal reduces the tree of post fragments to text
-    body: await concatTrees`
+    // deepText template literal reduces the tree of post fragments to text
+    body: await deepText`
       <h1>${siteInfo.title}</h1>
       <p>${siteInfo.description}</p>
       ${map(posts, postFragment)}
