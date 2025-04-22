@@ -21,7 +21,7 @@ const feed = await jsonFeed(posts);
 //
 export default {
   "about.html": aboutPage(),
-  assets: new FileTree(new URL("../src/assets", import.meta.url)),
+  assets: new FileTree(new URL("assets", import.meta.url)),
   images: new FileTree(new URL("../images", import.meta.url)),
   "index.html": pages.get("1.html"), // same as first page in pages area
   "feed.json": JSON.stringify(feed, null, 2),
