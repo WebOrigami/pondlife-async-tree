@@ -1,9 +1,9 @@
 {
-  "name": "@weborigami/pondlife-js",
+  "name": "@weborigami/pondlife-async-tree",
   "version": "0.0.1",
   "type": "module",
   "dependencies": {
-    "@weborigami/async-tree": "0.2.12",
+    "@weborigami/async-tree": "0.3.1",
     "@weborigami/json-feed-to-rss": "1.0.0",
     "marked": "15.0.7"
   },
