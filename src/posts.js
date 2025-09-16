@@ -1,9 +1,4 @@
-import {
-  addNextPrevious,
-  FileTree,
-  map,
-  reverse,
-} from "@weborigami/async-tree";
+import { FileTree, Tree } from "@weborigami/async-tree";
 import { marked } from "marked";
 import markdownDocument from "./markdownDocument.js";
 import parseDate from "./parseDate.js";
@@ -18,10 +13,10 @@ const buffers = new FileTree(new URL("../markdown", import.meta.url));
 
 // Convert the markdown buffers to objects with a `title` property and a `body`
 // property that contains the markdown text.
-const markdownDocuments = await map(buffers, markdownDocument);
+const markdownDocuments = await Tree.map(buffers, markdownDocument);
 
 // Transform and add properties
-const htmlDocuments = await map(markdownDocuments, {
+const htmlDocuments = await Tree.map(markdownDocuments, {
   // Change the extension
   extension: ".md->.html",
   // Parse date from filename and convert the body from markdown to HTML
@@ -38,9 +33,9 @@ const htmlDocuments = await map(markdownDocuments, {
 // by looking at the adjacent posts in the list. We need to do this before
 // reversing the order in the next step; we want "next" to mean the next
 // post in chronological order, not display order.
-const crossLinked = await addNextPrevious(htmlDocuments);
+const crossLinked = await Tree.addNextPrevious(htmlDocuments);
 
 // Entries are sorted by date; reverse for latest first
-const reversed = reverse(crossLinked);
+const reversed = await Tree.reverse(crossLinked);
 
 export default reversed;

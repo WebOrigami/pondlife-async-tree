@@ -1,11 +1,11 @@
-import { Tree, map } from "@weborigami/async-tree";
+import { Tree } from "@weborigami/async-tree";
 import siteInfo from "./siteInfo.js";
 
 /**
  * Generate an object representing the feed in JSON Feed format.
  */
 export default async (data) => {
-  const itemTree = map(data, (post, slug) => ({
+  const itemTree = await Tree.map(data, (post, slug) => ({
     // Patch image URLs to be absolute
     content_html: post.body.replace(/src="\//g, `src="${siteInfo.url}/`),
     date_published: post.date,

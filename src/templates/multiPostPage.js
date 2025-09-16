@@ -1,4 +1,4 @@
-import { map, text } from "@weborigami/async-tree";
+import { Tree } from "@weborigami/async-tree";
 import siteInfo from "../siteInfo.js";
 import page from "./page.js";
 import postFragment from "./postFragment.js";
@@ -9,10 +9,10 @@ export default async ({ items: posts, nextPage, pageNumber, previousPage }) =>
     title: `${siteInfo.title} — Page ${pageNumber}`,
     area: pageNumber === 1 ? "home" : null,
     // text template literal reduces the tree of post fragments to text
-    body: await text`
+    body: await Tree.text`
       <h1>${siteInfo.title}</h1>
       <p>${siteInfo.description}</p>
-      ${map(posts, postFragment)}
+      ${await Tree.map(posts, postFragment)}
       <p>
         ${
           nextPage

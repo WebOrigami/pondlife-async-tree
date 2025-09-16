@@ -1,4 +1,4 @@
-import { FileTree, map, paginate } from "@weborigami/async-tree";
+import { FileTree, Tree } from "@weborigami/async-tree";
 import jsonFeedToRss from "@weborigami/json-feed-to-rss";
 import jsonFeed from "./jsonFeed.js";
 import posts from "./posts.js";
@@ -7,7 +7,7 @@ import multiPostPage from "./templates/multiPostPage.js";
 import singlePostPage from "./templates/singlePostPage.js";
 
 // Group posts into pages of 10
-const pages = map(await paginate(posts, 10), {
+const pages = await Tree.map(await Tree.paginate(posts, 10), {
   extension: "->.html", // Add `.html` to the numeric keys
   value: multiPostPage, // Apply template to the set of 10 posts
 });
@@ -27,5 +27,5 @@ export default {
   "feed.json": JSON.stringify(feed, null, 2),
   "feed.xml": jsonFeedToRss(feed),
   pages,
-  posts: map(posts, singlePostPage),
+  posts: await Tree.map(posts, singlePostPage),
 };
