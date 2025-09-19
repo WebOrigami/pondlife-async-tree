@@ -1,7 +1,8 @@
+import { Tree } from "@weborigami/async-tree";
 import siteInfo from "../siteInfo.js";
 
 // Base page template for all pages
-export default (page) => `<!DOCTYPE html>
+export default (page) => Tree.indent`<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -21,7 +22,7 @@ export default (page) => `<!DOCTYPE html>
       <a href="/about.html" class="about">About</a>
     </header>
     <main>    
-${page.body}
+      ${page.body}
     </main>
   </body>
 </html>

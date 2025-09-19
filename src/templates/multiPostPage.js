@@ -9,14 +9,14 @@ export default async ({ items: posts, nextPage, pageNumber, previousPage }) =>
     title: `${siteInfo.title} — Page ${pageNumber}`,
     area: pageNumber === 1 ? "home" : null,
     // text template literal reduces the tree of post fragments to text
-    body: await Tree.text`
+    body: await Tree.indent`
       <h1>${siteInfo.title}</h1>
       <p>${siteInfo.description}</p>
       ${await Tree.map(posts, postFragment)}
       <p>
         ${
           nextPage
-            ? `
+            ? await Tree.indent`
               <a class="next" href="/pages/${nextPage}.html"><strong>Older posts</strong></a>
               <span>&nbsp;</span>
             `
@@ -24,7 +24,7 @@ export default async ({ items: posts, nextPage, pageNumber, previousPage }) =>
         }
         ${
           previousPage
-            ? `
+            ? await Tree.indent`
               <a class="previous" href="${
                 previousPage == 1 ? "/" : `/pages/${previousPage}.html`
               }"><strong>Newer posts</strong></a>

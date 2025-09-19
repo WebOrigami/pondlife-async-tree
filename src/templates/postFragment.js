@@ -1,5 +1,7 @@
+import { Tree } from "@weborigami/async-tree";
+
 // A single blog post, on its own or in a list
-export default (post, key) => `
+export default async (post, key) => Tree.indent`
   <section>
     <a href="/posts/${key}">
       <h2>${post.title}</h2>
