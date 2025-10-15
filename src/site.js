@@ -1,4 +1,4 @@
-import { FileTree, Tree } from "@weborigami/async-tree";
+import { FileMap, Tree } from "@weborigami/async-tree";
 import jsonFeedToRss from "@weborigami/json-feed-to-rss";
 import jsonFeed from "./jsonFeed.js";
 import posts from "./posts.js";
@@ -21,8 +21,8 @@ const feed = await jsonFeed(posts);
 //
 export default {
   "about.html": aboutPage(),
-  assets: new FileTree(new URL("assets", import.meta.url)),
-  images: new FileTree(new URL("../images", import.meta.url)),
+  assets: new FileMap(new URL("assets", import.meta.url)),
+  images: new FileMap(new URL("../images", import.meta.url)),
   "index.html": pages.get("1.html"), // same as first page in pages area
   "feed.json": JSON.stringify(feed, null, 2),
   "feed.xml": jsonFeedToRss(feed),

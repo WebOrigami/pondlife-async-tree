@@ -1,4 +1,4 @@
-import { FileTree, Tree } from "@weborigami/async-tree";
+import { FileMap, Tree } from "@weborigami/async-tree";
 import { marked } from "marked";
 import markdownDocument from "./markdownDocument.js";
 import parseDate from "./parseDate.js";
@@ -8,8 +8,8 @@ import parseDate from "./parseDate.js";
 // reverse-chronological ordered collection of document objects ready for
 // rendering in various forms.
 
-// Start with all the markdown files as a tree of Buffers
-const buffers = new FileTree(new URL("../markdown", import.meta.url));
+// Start with all the markdown files as a map of Buffers
+const buffers = new FileMap(new URL("../markdown", import.meta.url));
 
 // Convert the markdown buffers to objects with a `title` property and a `body`
 // property that contains the markdown text.
