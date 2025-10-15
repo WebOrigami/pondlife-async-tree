@@ -16,7 +16,7 @@ const buffers = new FileTree(new URL("../markdown", import.meta.url));
 const markdownDocuments = await Tree.map(buffers, markdownDocument);
 
 // Transform and add properties
-const htmlDocuments = await Tree.map(markdownDocuments, {
+const htmlDocuments = await Tree.mapExtension(markdownDocuments, {
   // Change the extension
   extension: ".md->.html",
   // Parse date from filename and convert the body from markdown to HTML

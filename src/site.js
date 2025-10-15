@@ -7,7 +7,7 @@ import multiPostPage from "./templates/multiPostPage.js";
 import singlePostPage from "./templates/singlePostPage.js";
 
 // Group posts into pages of 10
-const pages = await Tree.map(await Tree.paginate(posts, 10), {
+const pages = await Tree.mapExtension(await Tree.paginate(posts, 10), {
   extension: "->.html", // Add `.html` to the numeric keys
   value: multiPostPage, // Apply template to the set of 10 posts
 });
